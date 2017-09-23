@@ -21,6 +21,11 @@ let onDataTimeout = 0;
 let progressDelay;
 let contentLength;
 
+process.on('unhandledRejection', reason => {
+   console.error(reason);
+   process.exit(-1);
+});
+
 function send(msg) {
    if( process.send )
       process.send(msg);
@@ -107,12 +112,28 @@ const request = (protocol, opts) => new Promise((resolve, reject) => {
    }).on('error', onError);
 });
 
+function getDecoder(url) {
+   for(const key in DECODERS) {
+      if( DECODERS[key].tester().test(url) )
+         return DECODERS[key];
+   }
+}
+
 async function start(opts) {
    let msg;
+   const decoder = getDecoder(opts.url);
+
+   if( !decoder ) {
+      return {
+         type: 'fatal',
+         message: 'this url is not supported',
+         exitCode: 7
+      };
+   }
 
    for(let i = 0; i < opts.retry; i++) {
       try {
-         const downloadInfo = await DECODERS[opts.type].decoder(opts.url, opts.timeout);
+         const downloadInfo = await decoder.decoder(opts.url, opts.timeout);
          const Url = new URL(downloadInfo.url);
          if( !msg ) {
             msg = {
@@ -153,13 +174,13 @@ async function start(opts) {
                throw {
                   type: 'fatal',
                   message: 'this webside can not use range',
-                  exitCode: 7
+                  exitCode: 8
                };
             }
             requestOpts.headers.range = `${downloadInfo.range}=${currSize}-`;
          }
 
-         await request(PROTOCOLS[DECODERS[opts.type].protocol], requestOpts);
+         await request(PROTOCOLS[decoder.protocol], requestOpts);
          return;
       } catch(err) {
          if(typeof err === 'object') {
@@ -175,7 +196,7 @@ async function start(opts) {
    return {
       type: 'fatal',
       message: 'can not download file',
-      exitCode: 8
+      exitCode: 9
    };
 }
 
@@ -190,9 +211,6 @@ async function main() {
    case 'url':
       console.error('url is required');
       return process.exit(1);
-   case 'type':
-      console.error('type not found');
-      return process.exit(2);
    case 'path':
       console.error('continuePath XOR dirname must = 1');
       return process.exit(3);
@@ -231,7 +249,7 @@ async function main() {
 
    const downloadErr = await start(opts);
    if( downloadErr ) {
-      if( removeFail )
+      if( removeFail && downloadDest )
          await fsPromise.unlink(downloadDest.path);
 
       console.error(downloadErr.message);

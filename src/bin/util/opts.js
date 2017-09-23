@@ -1,10 +1,6 @@
-const DECODERS = require('../lib/decoders');
-
 const ARGV_MAP = {
    '-u': 'url',
    '--url': 'url',
-   '-t': 'type',
-   '--type': 'type',
    '-cp': 'continuePath',
    '--continue-path': 'continuePath',
    '-d': 'dirname',
@@ -21,17 +17,14 @@ const ARGV_MAP = {
 
 const DEFAULT_OPTS = {
    timeout: 30000,
-   retry: 5,
-   retryDelay: 5000,
+   retry: 3,
+   retryDelay: 3000,
    progressDelay: 500
 };
 
 function fixOpts(opts) {
    if( !opts.url )
       return 'url';
-
-   if( !DECODERS[opts.type] )
-      return 'type';
 
    if((!opts.continuePath && !opts.dirname) || (opts.continuePath && opts.dirname))
       return 'path';
