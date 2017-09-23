@@ -1,0 +1,6 @@
+[submodule "lib/google-drive-decoder"]
+	path = lib/google-drive-decoder
+	url = https://sam40305@bitbucket.org/sam40305/google-drive-decoder.git
+[submodule "lib/zippyshare-decoder"]
+	path = lib/zippyshare-decoder
+	url = https://sam40305@bitbucket.org/sam40305/zippyshare-decoder.git

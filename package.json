@@ -5,5 +5,9 @@
   "repository": "https://sam40305@bitbucket.org/sam40305/sy-downloader.git",
   "author": "Shuo Yang <shuo.yang.tek@gmail.com>",
   "license": "NONE",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "google-drive-decoder": "file:lib/google-drive-decoder",
+    "zippyshare-decoder": "file:lib/zippyshare-decoder"
+  }
 }
