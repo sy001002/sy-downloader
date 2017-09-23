@@ -1,0 +1,9 @@
+{
+  "name": "sy-downloader",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "repository": "https://sam40305@bitbucket.org/sam40305/sy-downloader.git",
+  "author": "Shuo Yang <shuo.yang.tek@gmail.com>",
+  "license": "NONE",
+  "private": true
+}
