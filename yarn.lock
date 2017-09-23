@@ -83,8 +83,9 @@ entities@^1.1.1, entities@~1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/entities/-/entities-1.1.1.tgz#6e5c2d0a5621b5dadaecef80b90edfb5cd7772f0"
 
-"google-drive-decoder@file:lib/google-drive-decoder":
-  version "1.0.3"
+"google-drive-decoder@https://github.com/sy001002/google-drive-decoder.git":
+  version "1.1.0"
+  resolved "https://github.com/sy001002/google-drive-decoder.git#665e84ab7c584b1293181ad3ba8041d9e8969922"
   dependencies:
     cheerio "^1.0.0-rc.2"
     node-fetch "^1.7.3"
@@ -173,8 +174,9 @@ util-deprecate@~1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
 
-"zippyshare-decoder@file:lib/zippyshare-decoder":
-  version "1.0.0"
+"zippyshare-decoder@https://github.com/sy001002/zippyshare-decoder.git":
+  version "1.1.0"
+  resolved "https://github.com/sy001002/zippyshare-decoder.git#e9e899106a7656fb3d7f304f2b3f74f2a770d89f"
   dependencies:
     cheerio "^1.0.0-rc.2"
     node-fetch "^1.7.3"

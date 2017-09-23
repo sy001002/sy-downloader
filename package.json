@@ -7,7 +7,7 @@
   "license": "NONE",
   "private": true,
   "dependencies": {
-    "google-drive-decoder": "file:lib/google-drive-decoder",
-    "zippyshare-decoder": "file:lib/zippyshare-decoder"
+    "google-drive-decoder": "https://github.com/sy001002/google-drive-decoder.git",
+    "zippyshare-decoder": "https://github.com/sy001002/zippyshare-decoder.git"
   }
 }
