@@ -119,18 +119,18 @@ CLI
 `args` has a mapping to the function `syDownloader(opts)`'s `opts`:
 
 ```
-'-u': 'url'
-'--url': 'url'
-'-cp': 'continuePath'
-'--continue-path': 'continuePath'
-'-d': 'dirname'
-'--dirname': 'dirname'
-'-tm': 'timeout'
-'--timeout': 'timeout'
-'-r': 'retry'
-'--retry': 'retry'
-'-rd': 'retryDelay'
-'--retry-delay': 'retryDelay'
-'-pd': 'progressDelay'
-'--progress-delay': 'progressDelay'
+-u:                   url
+--url:                url
+-cp:                  continuePath
+--continue-path:      continuePath
+-d:                   dirname
+--dirname:            dirname
+-tm:                  timeout
+--timeout:            timeout
+-r:                   retry
+--retry:              retry
+-rd:                  retryDelay
+--retry-delay:        retryDelay
+-pd:                  progressDelay
+--progress-delay:     progressDelay
 ```
