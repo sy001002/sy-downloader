@@ -7,6 +7,7 @@
   "license": "NONE",
   "private": true,
   "dependencies": {
+    "auto-bind": "^1.1.0",
     "google-drive-decoder": "https://github.com/sy001002/google-drive-decoder.git",
     "zippyshare-decoder": "https://github.com/sy001002/zippyshare-decoder.git"
   }

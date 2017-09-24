@@ -23,19 +23,21 @@ let contentLength;
 
 process.on('unhandledRejection', reason => {
    console.error(reason);
-   process.exit(-1);
+   process.exit(10);
 });
 
-function send(msg) {
+const send = msg => new Promise(resolve => {
    if( process.send )
-      process.send(msg);
-}
+      process.send(msg, resolve);
+   else
+      resolve();
+});
 
 function onData(chunk) {
    currSize += chunk.length;
    if( Date.now() >= onDataTimeout ) {
       const msg = {
-         type: 'process',
+         type: 'progress',
          size: currSize
       };
 
@@ -72,6 +74,12 @@ async function onEnd() {
          continue;
       } catch(err) {
          await fsPromise.rename(downloadDest.path, filePath);
+
+         await send({
+            type: 'complete',
+            path: filePath
+         });
+
          console.log(`${filePath} download complete`);
          return process.exit(0);
       }
@@ -80,7 +88,7 @@ async function onEnd() {
 
 function onError(err) {
    console.error('download error');
-   process.exit(8);
+   process.exit(9);
 }
 
 const request = (protocol, opts) => new Promise((resolve, reject) => {
@@ -127,7 +135,7 @@ async function start(opts) {
       return {
          type: 'fatal',
          message: 'this url is not supported',
-         exitCode: 7
+         exitCode: 6
       };
    }
 
@@ -174,7 +182,7 @@ async function start(opts) {
                throw {
                   type: 'fatal',
                   message: 'this webside can not use range',
-                  exitCode: 8
+                  exitCode: 7
                };
             }
             requestOpts.headers.range = `${downloadInfo.range}=${currSize}-`;
@@ -196,7 +204,7 @@ async function start(opts) {
    return {
       type: 'fatal',
       message: 'can not download file',
-      exitCode: 9
+      exitCode: 8
    };
 }
 
@@ -204,13 +212,13 @@ async function main() {
    const opts = Opts.getOpts();
    if( !opts ) {
       console.error('argv fucked');
-      return process.exit(-1);
+      return process.exit(1);
    }
 
    switch( opts ) {
    case 'url':
       console.error('url is required');
-      return process.exit(1);
+      return process.exit(2);
    case 'path':
       console.error('continuePath XOR dirname must = 1');
       return process.exit(3);
@@ -229,7 +237,7 @@ async function main() {
          });
       } catch(err) {
          console.error('can not read continuePath');
-         return process.exit(5);
+         return process.exit(4);
       }
    } else {
       opts.dirname = normalizePath(opts.dirname);
@@ -243,7 +251,7 @@ async function main() {
       } catch(err) {
          console.log(err);
          console.error('dirname is not directory');
-         return process.exit(6);
+         return process.exit(5);
       }
    }
 

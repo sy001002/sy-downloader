@@ -15,11 +15,21 @@ const ARGV_MAP = {
    '--progress-delay': 'progressDelay'
 };
 
+const ARGV_MAP_REVERSED = {
+   url: ['-u', '--url'],
+   continuePath: ['-cp', '--continue-path'],
+   dirname: ['-d', '--dirname'],
+   timeout: ['-tm', '--timeout'],
+   retry: ['-r', '--retry'],
+   retryDelay: ['-rd', '--retry-delay'],
+   progressDelay: ['-pd', '--progress-delay']
+};
+
 const DEFAULT_OPTS = {
    timeout: 30000,
    retry: 3,
    retryDelay: 3000,
-   progressDelay: 500
+   progressDelay: 1000
 };
 
 function fixOpts(opts) {
@@ -69,5 +79,6 @@ function getOpts() {
 }
 
 module.exports = {
-   getOpts
+   getOpts,
+   ARGV_MAP_REVERSED
 };
