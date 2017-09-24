@@ -4,7 +4,7 @@ API
 Functions
 ---
 
-* `syDownloader(opts)`
+### `syDownloader(opts)`
 
 This function returns a `SyDownload` instant.
 
@@ -33,7 +33,7 @@ Default to `1000`.
 Methods
 ---
 
-* `cancel()`
+### `cancel()`
 
 This method will kill the child process with `SIGINT`, 
 and will NOT call the `onClose` handler.
@@ -44,7 +44,36 @@ You should remove `dest` file by self if needed.
 
 
 
-* `onComplete(handler)`
+### `onFilenameGot(handler)`
+
+`handler` receive an argument `data` type of `object`.
+
+`data.filename` is the filename from the download url.
+
+
+
+### `onDestGot(handler)`
+
+`handler` receive an argument `data` type of `object`.
+
+`data.dest` is the path of the working file.
+
+
+
+### `onProgress(handler)`
+
+`handler` receive an argument `data` type of `object`.
+
+`data.size` is the size downloaded in bytes.
+
+`data.total` is the total size of this file.
+
+`data.total` may not exist if the response headers 
+do not contain the `Content-Length` data.
+
+
+
+### `onComplete(handler)`
 
 `handler` receive an argument `data` type of `object`
 
@@ -52,7 +81,7 @@ You should remove `dest` file by self if needed.
 
 
 
-* `onClose(handler)`
+### `onClose(handler)`
 
 `handler` receive an argument `err` type of `string`.
 
@@ -74,36 +103,7 @@ If `err` existed, which would be:
 
 
 
-* `onProgress(handler)`
-
-`handler` receive an argument `data` type of `object`.
-
-`data.size` is the size downloaded in bytes.
-
-`data.total` is the total size of this file.
-
-`data.total` may not exist if the response headers 
-do not contain the `Content-Length` data.
-
-
-
-* `onFilenameGot(handler)`
-
-`handler` receive an argument `data` type of `object`.
-
-`data.filename` is the filename from the download url.
-
-
-
-* `onDestGot(handler)`
-
-`handler` receive an argument `data` type of `object`.
-
-`data.dest` is the path of the working file.
-
-
-
-* `onChildProcessError(handler)`
+### `onChildProcessError(handler)`
 
 `handler` receive an argument `err`.
 
